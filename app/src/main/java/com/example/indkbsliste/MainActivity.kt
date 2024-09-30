@@ -1,19 +1,26 @@
 package com.example.indkbsliste
 
 import android.content.ClipData.Item
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+
+
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
@@ -45,6 +52,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -62,7 +70,23 @@ class MainActivity : ComponentActivity() {
         setContent {
             IndkøbslisteTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ProductsScreen(modifier = Modifier.padding(innerPadding))
+                    Column(modifier = Modifier.padding(innerPadding)) {
+                        val configuration = LocalConfiguration.current
+
+                        when (configuration.orientation) {
+                            Configuration.ORIENTATION_PORTRAIT -> {
+
+                            }
+
+                            Configuration.ORIENTATION_LANDSCAPE ->{
+
+                            }
+
+                            else -> {
+
+                            }
+                        }
+                    }
 
                 }
             }
@@ -139,5 +163,110 @@ fun ItemsCard(
 fun GreetingPreview() {
     IndkøbslisteTheme {
         ProductsScreen()
+    }
+}
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun caculator(modifier: Modifier = Modifier)
+{
+    Column ( modifier = modifier
+        .padding(10.dp)
+        .fillMaxSize()
+    ) {
+        OutlinedTextField( modifier = Modifier.fillMaxWidth() ,value = "", onValueChange = {  }, label = { Text("Enter a word") })
+        Row(
+        ) {
+
+            Button(modifier = Modifier.weight(1f).height(100.dp), onClick = {  }) { Text("7") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("8") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("9") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("+") }
+        }
+        Row(
+        ) {
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("4") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("5") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("6") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("-") }
+        }
+        Row(
+        ) {
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("1") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("2") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("3") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("/") }
+        }
+        Row(
+        ) {
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("0") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text(".") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("=") }
+            Button(modifier = Modifier.weight(1f).height(100.dp),onClick = {  }) { Text("*") }
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    IndkøbslisteTheme {
+        caculator()
+    }
+}
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun Call(modifier: Modifier = Modifier) {
+    // Define common button modifiers
+    val buttonModifier = Modifier
+
+        .height(60.dp) // Set a fixed height for buttons
+        .padding(4.dp) // Optional: Add padding around buttons
+
+    Column(
+        modifier = modifier
+            .padding(10.dp)
+            .fillMaxSize()
+    ) {
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            label = { Text("Enter a word") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(10.dp)) // Add spacing between text field and buttons
+        Column(modifier = Modifier.weight(1f)) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Button(modifier = buttonModifier, onClick = { }) { Text("7") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("8") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("9") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("+") }
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Button(modifier = buttonModifier, onClick = { }) { Text("4") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("5") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("6") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("-") }
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Button(modifier = buttonModifier, onClick = { }) { Text("1") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("2") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("3") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("/") }
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Button(modifier = buttonModifier, onClick = { }) { Text("0") }
+                Button(modifier = buttonModifier, onClick = { }) { Text(".") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("=") }
+                Button(modifier = buttonModifier, onClick = { }) { Text("*") }
+            }
+        }
+    }
+}
+@Preview
+@Composable
+fun CalPreview() {
+    IndkøbslisteTheme {
+        Call()
     }
 }
